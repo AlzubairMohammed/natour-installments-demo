@@ -1,12 +1,8 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const categories = require("./routes/categories");
-const attributes = require("./routes/attributes");
-const variations = require("./routes/variations");
-const prodcuts = require("./routes/products");
-const subCategories = require("./routes/subCategories");
-const users = require("./routes/users");
+const installmentUserRister = require("./routes/installmentUserRister");
+
 const httpStatus = require("./utils/httpStatus");
 
 app.use(express.json());
@@ -19,12 +15,7 @@ app.use(
 );
 
 const URL = process.env.ROUTES_URL;
-app.use(`${URL}/categories/`, categories);
-app.use(`${URL}/attributes/`, attributes);
-app.use(`${URL}/variations/`, variations);
-app.use(`${URL}/products/`, prodcuts);
-app.use(`${URL}/subCategories/`, subCategories);
-app.use(`${URL}/users/`, users);
+app.use(`${URL}/installment-user-register/`, installmentUserRister);
 
 app.use(express.static("."));
 // global error handler
