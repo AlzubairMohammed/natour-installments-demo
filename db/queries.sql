@@ -56,20 +56,21 @@ CREATE TABLE installments (
     is_guarantee BOOLEAN,
     FOREIGN KEY (appartment_id) REFERENCES appartments(id),
     FOREIGN KEY (installment_user_register_id) REFERENCES installment_user_register(id)
-)
+);
 
 CREATE TABLE installment_months(
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     status 	INT,
-    installment_id	BIGINT UNSIGNED,
+    installment_id BIGINT UNSIGNED,
     paid_date DATE,
-    payment_method INT
-)
+    payment_method INT,
+    FOREIGN KEY (installment_id) REFERENCES installments(id)
+);
 
-CREATE TABLE appartment_images{
+CREATE TABLE appartment_images(
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     appartment_id BIGINT UNSIGNED,
     image VARCHAR(255),
     FOREIGN KEY (appartment_id) REFERENCES appartments(id)
-}
+);
 
