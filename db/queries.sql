@@ -59,9 +59,17 @@ CREATE TABLE installments (
 )
 
 CREATE TABLE installment_months(
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     status 	INT,
     installment_id	BIGINT UNSIGNED,
     paid_date DATE,
     payment_method INT
 )
+
+CREATE TABLE appartment_images{
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    appartment_id BIGINT UNSIGNED,
+    image VARCHAR(255),
+    FOREIGN KEY (appartment_id) REFERENCES appartments(id)
+}
 
