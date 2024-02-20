@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const installments = require("./routes/installments");
+const appartments = require("./routes/appartments");
 
 const httpStatus = require("./utils/httpStatus");
 
@@ -16,6 +17,7 @@ app.use(
 
 const URL = process.env.ROUTES_URL;
 app.use(`${URL}/installments`, installments);
+app.use(`${URL}/appartments`, appartments);
 
 app.use(express.static("."));
 // global error handler

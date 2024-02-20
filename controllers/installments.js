@@ -35,3 +35,23 @@ exports.getRequests = asyncWrapper(async (req, res, next) => {
   });
   return res.json({ status: httpStatus.SUCCESS, data });
 });
+
+exports.getInstallment = asyncWrapper(async (req, res, next) => {
+  return res.json("get one installment");
+});
+
+exports.getInstallments = asyncWrapper(async (req, res, next) => {
+  return res.json("get all installments");
+});
+
+exports.createInstallment = asyncWrapper(async (req, res, next) => {
+  return res.json("Installment created");
+});
+
+exports.updateInstallment = asyncWrapper(async (req, res, next) => {
+  return res.json("Installment updated");
+});
+
+exports.deleteInstallment = asyncWrapper(async (req, res, next) => {
+  return res.json("Installment deleted");
+});
