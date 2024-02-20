@@ -15,7 +15,7 @@ CREATE TABLE installment_user_register (
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE out_appartment (
+CREATE TABLE out_appartments (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     register_id BIGINT UNSIGNED,
     owner_name VARCHAR(255),

@@ -2,7 +2,7 @@ const { body } = require("express-validator");
 
 exports.installmentUserRegisterValidator = () => {
   return [
-    body("rent_id").isInt("Rent id must be integer ."),
+    // body("rent_id").isInt("Rent id must be integer ."),
     body("name")
       .notEmpty()
       .withMessage("Name can't be null .")
