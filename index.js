@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const installmentUserRister = require("./routes/installmentUserRister");
+const installments = require("./routes/installments");
 
 const httpStatus = require("./utils/httpStatus");
 
@@ -15,7 +15,7 @@ app.use(
 );
 
 const URL = process.env.ROUTES_URL;
-app.use(`${URL}/installment-user-register/`, installmentUserRister);
+app.use(`${URL}/installments`, installments);
 
 app.use(express.static("."));
 // global error handler

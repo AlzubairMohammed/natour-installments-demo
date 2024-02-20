@@ -9,9 +9,10 @@ CREATE TABLE installment_user_register (
     nationality VARCHAR(100),
     gender BOOLEAN,
     more_info TEXT,
-    user_id INT,
+    user_id BIGINT UNSIGNED,
     expect_rent_date DATE,
-    FOREIGN KEY (rent_id) REFERENCES rents(id)
+    FOREIGN KEY (rent_id) REFERENCES rents(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE out_appartment (

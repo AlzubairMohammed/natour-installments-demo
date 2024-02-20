@@ -16,8 +16,8 @@ exports.installmentUserRegisterValidator = () => {
     body("salary").isDecimal().withMessage("Field must be decimal ."),
     body("nationality").isString("Field must be string ."),
     body("gender").isInt().withMessage("Field must be integer ."),
+    body("user_id").isInt().withMessage("Field must be integer ."),
     body("more_info"),
-    body("user_id").isEmpty().withMessage("Field can't be null"),
     body("expect_rent_date")
       .isDate()
       .withMessage("Field must be in date format")
