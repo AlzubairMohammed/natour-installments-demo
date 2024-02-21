@@ -6,5 +6,11 @@ const asyncWrapper = require("../middlewares/asyncWrapper");
 const { appartments, appartment_images, cities, areas } = models;
 
 exports.creatAppartment = asyncWrapper(async (req, res, next) => {
-  return res.json(req.body);
+  // return res.json(req.body);
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = errorResponse.create(errors.array(), 400, httpStatus.FAIL);
+    return next(error);
+  }
+  return res.json("hi from create appartment");
 });

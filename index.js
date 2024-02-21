@@ -3,15 +3,22 @@ const app = express();
 require("dotenv").config();
 const installments = require("./routes/installments");
 const appartments = require("./routes/appartments");
-
 const httpStatus = require("./utils/httpStatus");
-
+const fileEasyUpload = require("express-easy-fileuploader");
 app.use(express.json());
 
 const cors = require("cors");
 app.use(
   cors({
     origin: "*",
+  })
+);
+app.use(
+  fileEasyUpload({
+    app,
+    fileUploadOptions: {
+      limits: { fileSize: 50 * 1024 * 1024 },
+    },
   })
 );
 

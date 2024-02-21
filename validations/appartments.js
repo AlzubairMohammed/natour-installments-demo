@@ -10,15 +10,18 @@ exports.appartmentsValidator = () => {
       .isInt()
       .withMessage("Field must be integer ."),
     body("street_name")
-      .notEmpty("Field is required .")
+      .notEmpty()
+      .withMessage("Field is required .")
       .isString()
-      .withMessage("Field must be integer ."),
+      .withMessage("Field must be string ."),
     body("building_name")
-      .notEmpty("Field is required .")
+      .notEmpty()
+      .withMessage("Field is required .")
       .isString()
       .withMessage("Field must be string"),
     body("building_no")
-      .notEmpty("Field is required .")
+      .notEmpty()
+      .withMessage("Field is required .")
       .isString()
       .withMessage("Field must be string ."),
     body("price")
@@ -53,4 +56,3 @@ exports.appartmentsValidator = () => {
       .withMessage("Field must be integer ."),
   ];
 };
-ß;
