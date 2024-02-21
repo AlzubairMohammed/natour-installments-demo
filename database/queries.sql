@@ -42,7 +42,6 @@ CREATE TABLE appartments (
     owner_phone INT,
     lat VARCHAR(255),
     lng VARCHAR(255),
-    images VARCHAR(255),
     status INT,
     FOREIGN KEY (city_id) REFERENCES cities(id),
     FOREIGN KEY (area_id) REFERENCES areas(id)
