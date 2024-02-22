@@ -11,14 +11,14 @@ const routes = [
   },
 
   {
-    path: "/categories_page",
-    name: "CategoriesPage",
-    component: () => import("../views/CategoriesPage.vue"),
+    path: "/appartments",
+    name: "appartements",
+    component: () => import("../views/AppartmentsPage.vue"),
   },
   {
-    path: "/products_page",
-    name: "ProductsPage",
-    component: () => import("../views/ProductsPage.vue"),
+    path: "/installments",
+    name: "installments",
+    component: () => import("../views/InstallmentsPage.vue"),
   },
 ];
 

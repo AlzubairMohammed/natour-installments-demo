@@ -54,7 +54,7 @@ onMounted(async () => {
 
 <template>
   <app-layout>
-    <app-navbar :title="'الخصائص'"></app-navbar>
+    <app-navbar :title="'الشقق'"></app-navbar>
     <div class="w-full py-8 px-4">
       <!-- <page-header title="الاقسام" /> -->
       <div class="flex justify-between items-center py-4">

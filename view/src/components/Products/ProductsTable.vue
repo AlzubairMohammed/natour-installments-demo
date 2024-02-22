@@ -21,11 +21,11 @@ const deletProduct = () => {
         >
           <tr>
             <th scope="col" class="px-6 py-3 text-center">الرقم</th>
-            <th scope="col" class="px-6 py-3 text-center">الاسم</th>
-            <th scope="col" class="px-6 py-3 text-center">القسم</th>
-            <th scope="col" class="px-6 py-3 text-center">سعر المخزن</th>
-            <th scope="col" class="px-6 py-3 text-center">سعر البيع</th>
-            <th scope="col" class="px-6 py-3 text-center">الصورة</th>
+            <th scope="col" class="px-6 py-3 text-center">اسم الؤجر</th>
+            <th scope="col" class="px-6 py-3 text-center">رقم الجوال</th>
+            <th scope="col" class="px-6 py-3 text-center">تاريخ البداية</th>
+            <th scope="col" class="px-6 py-3 text-center">تاريخ النهاية</th>
+            <th scope="col" class="px-6 py-3 text-center">الحالة</th>
             <th scope="col" class="px-6 py-3 text-center"></th>
           </tr>
         </thead>
