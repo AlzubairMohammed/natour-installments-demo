@@ -59,6 +59,20 @@ exports.getAppartment = asyncWrapper(async (req, res, next) => {
 });
 
 exports.getAppartments = asyncWrapper(async (req, res) => {
-  const data = await appartments.findAll();
+  const data = await appartments.findAll({
+    include: [
+      { model: areas, as: "area" },
+      { model: cities, as: "city" },
+      { model: appartment_images, as: "appartment_images" },
+    ],
+  });
   return res.json({ status: httpStatus.SUCCESS, data });
+});
+
+exports.updateAppartment = asyncWrapper(async (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = errorResponse.create(errors.array(), 400, httpStatus.ERROR);
+    next(error);
+  }
 });
