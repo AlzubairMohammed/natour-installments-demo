@@ -37,8 +37,8 @@ exports.appartmentsValidator = () => {
     body("owner_phone")
       .notEmpty()
       .withMessage("Field is required .")
-      .isString()
-      .withMessage("Field must be string ."),
+      .isLuhnNumber()
+      .withMessage("Field must be phone number ."),
     body("lat")
       .notEmpty()
       .withMessage("Field is required .")
