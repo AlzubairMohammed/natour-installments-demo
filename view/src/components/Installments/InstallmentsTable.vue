@@ -25,7 +25,7 @@ const deletProduct = () => {
             <th scope="col" class="px-6 py-3 text-center">رقم الجوال</th>
             <th scope="col" class="px-6 py-3 text-center">تاريخ البداية</th>
             <th scope="col" class="px-6 py-3 text-center">تاريخ النهاية</th>
-            <th scope="col" class="px-6 py-3 text-center">الحالة</th>
+            <th scope="col" class="px-6 py-3 text-center">الضمان</th>
             <th scope="col" class="px-6 py-3 text-center"></th>
           </tr>
         </thead>
@@ -39,25 +39,22 @@ const deletProduct = () => {
               scope="row"
               class="px-6 py-4 text-center font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              {{ (index += 1) }}
+              {{ ++index }}
             </th>
-            <td class="px-6 py-4 text-center">{{ app?.name }}</td>
             <td class="px-6 py-4 text-center">
-              {{ app?.sub_category?.name }}
+              {{ app?.installment_user_register?.name }}
             </td>
-            <td class="px-6 py-4 text-center">{{ app?.buy_price }}</td>
-            <td class="px-6 py-4 text-center">{{ app?.sale_price }}</td>
+            <td class="px-6 py-4 text-center">
+              {{ app?.installment_user_register?.phone }}
+            </td>
+            <td class="px-6 py-4 text-center">
+              {{ app?.installment_start_date }}
+            </td>
+            <td class="px-6 py-4 text-center">
+              {{ app?.installment_end_date }}
+            </td>
             <td class="px-6 py-4 text-center flex justify-center">
-              <div
-                class="flex justify-center"
-                style="width: 80px; height: 60px; overflow: hidden"
-              >
-                <img
-                  style="width: 100%; height: auto"
-                  :src="`http://localhost:5000/api/static/${app?.product_images[0].image}`"
-                  alt=""
-                />
-              </div>
+              {{ app?.is_guarantee ? "يوجد" : "لايوجد" }}
             </td>
             <td class="px-6 py-4">
               <button
