@@ -1,6 +1,14 @@
 const asyncWrapper = require("../middlewares/asyncWrapper.js");
 const { models } = require("../database/connection");
-const { installment_user_register, users, rents, out_appartments } = models;
+const {
+  installment_user_register,
+  users,
+  rents,
+  out_appartments,
+  installments,
+  appartments,
+  installment_months,
+} = models;
 const httpStatus = require("../utils/httpStatus.js");
 const errorResponse = require("../utils/errorResponse");
 const { validationResult } = require("express-validator");
@@ -41,7 +49,14 @@ exports.getInstallment = asyncWrapper(async (req, res, next) => {
 });
 
 exports.getInstallments = asyncWrapper(async (req, res, next) => {
-  return res.json("get all installments");
+  const data = await installments.findAll({
+    include: [
+      { model: appartments, as: "appartment" },
+      { model: installment_user_register, as: "installment_user_register" },
+      { model: installment_months, as: "installment_months" },
+    ],
+  });
+  return res.json({ status: httpStatus.SUCCESS, data });
 });
 
 exports.createInstallment = asyncWrapper(async (req, res, next) => {
