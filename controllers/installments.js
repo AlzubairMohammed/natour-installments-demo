@@ -45,7 +45,16 @@ exports.getRequests = asyncWrapper(async (req, res, next) => {
 });
 
 exports.getInstallment = asyncWrapper(async (req, res, next) => {
-  return res.json("get one installment");
+  const id = req.params.id;
+  const data = await installments.findOne({
+    where: { id },
+    include: [
+      { model: appartments, as: "appartment" },
+      { model: installment_user_register, as: "installment_user_register" },
+      { model: installment_months, as: "installment_months" },
+    ],
+  });
+  return res.json({ status: httpStatus.SUCCESS, data });
 });
 
 exports.getInstallments = asyncWrapper(async (req, res, next) => {
