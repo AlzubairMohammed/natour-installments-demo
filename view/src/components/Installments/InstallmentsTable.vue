@@ -2,7 +2,7 @@
 import { defineProps } from "vue";
 let page = 1;
 let tot = 1;
-const props = defineProps(["showEditModal", "deletProduct", "products"]);
+const props = defineProps(["showEditModal", "deletProduct", "installments"]);
 const showEditModal = () => {
   props.showEditModal();
 };
@@ -31,7 +31,7 @@ const deletProduct = () => {
         </thead>
         <tbody>
           <tr
-            v-for="(app, index) in products"
+            v-for="(app, index) in installments"
             :key="app.id"
             class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
           >

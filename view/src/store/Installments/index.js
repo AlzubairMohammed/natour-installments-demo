@@ -1,23 +1,21 @@
 import request from "@/services/request";
 const state = {
-  Products: [],
+  installments: [],
   Categories: [],
-  session_url: "products",
-  get_products_url: "products/by-vendor-id/paginate",
-  get_categories_url: "sub-categories",
+  url: "installments",
   addError: [],
   config: {
     headers: {
-      "Content-Type": "application/json",
-      // "Content-Type": "multipart/form-data",
+      // "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
       // "Content-Type": "application/xml",
     },
   },
 };
 
 const getters = {
-  getProducts: (state) => {
-    return state.Products;
+  getInstallments: (state) => {
+    return state.installments;
   },
   getCategories: (state) => {
     return state.Categories;
@@ -25,12 +23,9 @@ const getters = {
 };
 
 const actions = {
-  async fetchProducts({ commit, state }, data) {
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    data.vendor_id = userData.id;
-    data.city_id = 2;
-    const response = await request.post(state.get_products_url, data);
-    commit("setProducts", response.data);
+  async fetchInstallments({ commit, state }) {
+    const response = await request.get(state.url);
+    commit("setInstallments", response.data);
   },
   async fetchCategories({ commit, state }) {
     const response = await request.get(state.get_categories_url);
@@ -89,8 +84,8 @@ const actions = {
 };
 
 const mutations = {
-  setProducts: (state, Products) => {
-    state.Products = Products;
+  setInstallments: (state, installments) => {
+    state.installments = installments;
   },
   setCategories: (state, Categories) => {
     state.Categories = Categories;

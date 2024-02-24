@@ -2,15 +2,15 @@
 import AppLayout from "@/components/AppLayout.vue";
 import AppNavbar from "@/components/AppNavbar.vue";
 import SearchAddButton from "@/components/Tables/SearchAddButton.vue";
-import ProductTable from "@/components/Products/ProductsTable.vue";
-import AddProductModal from "@/components/Products/AddProductModal.vue";
+import InstallmentsTable from "@/components/Installments/InstallmentsTable.vue";
+import AddInstallmentModal from "@/components/Installments/AddInstallmentModal.vue";
 import { FwbModal } from "flowbite-vue";
 import { onMounted, ref, inject } from "vue";
 import { useStore } from "vuex";
 const checkCookie = inject("checkCookie");
 const store = useStore();
 
-let products = ref([]);
+let installments = ref([]);
 let attributes = ref([]);
 
 // let search_term = "";
@@ -35,13 +35,13 @@ const deletProduct = async (id) => {
 };
 onMounted(async () => {
   try {
-    await store.dispatch("fetchProducts", { page: +1, limit: +100 });
-    products.value = store.getters.getProducts;
+    await store.dispatch("fetchInstallments");
+    installments.value = store.getters.getInstallments;
   } catch (error) {
     console.error("Error dispatching fetchProducts:", error);
   }
   try {
-    await store.dispatch("fetchAttributes");
+    // await store.dispatch("fetchAttributes");
     attributes.value = store.getters.allAttributes;
   } catch (error) {
     console.error("Error dispatching fetchProducts:", error);
@@ -56,12 +56,12 @@ onMounted(async () => {
     <div class="w-full py-8 px-4">
       <!-- <page-header title="المنتجات" /> -->
       <SearchAddButton :showModel="showAddModal" />
-      <ProductTable
+      <InstallmentsTable
         :showEditModal="showEditModal"
         :deletProduct="deletProduct"
-        :products="products"
+        :installments="installments"
       />
-      <AddProductModal
+      <AddInstallmentModal
         :isShowAddModal="isShowAddModal"
         :closeAddModal="closeAddModal"
       />
