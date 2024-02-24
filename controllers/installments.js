@@ -60,7 +60,18 @@ exports.getInstallments = asyncWrapper(async (req, res, next) => {
 });
 
 exports.createInstallment = asyncWrapper(async (req, res, next) => {
-  return res.json("Installment created");
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = errorResponse.create(errors.array(), 400, httpStatus.ERROR);
+    next(error);
+  }
+  let data = await installments.create(req.body);
+  const installment_id = data.id;
+  let i = 8;
+  while (i--) {
+    await installment_months.create({ installment_id });
+  }
+  return res.json({ status: httpStatus.SUCCESS, data });
 });
 
 exports.updateInstallment = asyncWrapper(async (req, res, next) => {
