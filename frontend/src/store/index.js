@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 import users from "./users";
 import Installments from "./Installments";
 import Attributes from "./Attributes";
+import Requests from "./Requests";
 
 export default createStore({
   state: {},
@@ -13,5 +14,6 @@ export default createStore({
     users,
     Installments,
     Attributes,
+    Requests,
   },
 });
