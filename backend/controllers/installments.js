@@ -9,6 +9,8 @@ const {
   installments,
   appartments,
   installment_months,
+  cities,
+  areas,
 } = models;
 const httpStatus = require("../utils/httpStatus.js");
 const errorResponse = require("../utils/errorResponse");
@@ -39,6 +41,10 @@ exports.getRequests = asyncWrapper(async (req, res, next) => {
       {
         model: out_appartments,
         as: "out_appartments",
+        include: [
+          { model: cities, as: "city" },
+          { model: areas, as: "area" },
+        ],
       },
     ],
   });
