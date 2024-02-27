@@ -50,6 +50,31 @@ exports.getRequests = asyncWrapper(async (req, res, next) => {
   });
   return res.json({ status: httpStatus.SUCCESS, data });
 });
+exports.getRequest = asyncWrapper(async (req, res, next) => {
+  const id = req.params.id;
+  const data = await installment_user_register.findOne({
+    where: { id },
+    include: [
+      {
+        model: users,
+        as: "user",
+      },
+      {
+        model: rents,
+        as: "rent",
+      },
+      {
+        model: out_appartments,
+        as: "out_appartments",
+        include: [
+          { model: cities, as: "city" },
+          { model: areas, as: "area" },
+        ],
+      },
+    ],
+  });
+  return res.json({ status: httpStatus.SUCCESS, data });
+});
 
 exports.getInstallment = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
