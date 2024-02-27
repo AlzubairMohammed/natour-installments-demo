@@ -10,12 +10,14 @@ const {
   createInstallment,
   deleteInstallment,
   updateInstallment,
+  getUserInstallment,
 } = require("../controllers/installments");
 
 router.post("/user-register", installmentUserRegisterValidator(), userRegister);
 router.get("/requests", getRequests);
 router
   .get("/", getInstallments)
+  .get("/user", getUserInstallment)
   .post("/", createInstallment)
   .get("/:id", getInstallment)
   .delete("/:id", deleteInstallment)

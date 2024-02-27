@@ -1,5 +1,6 @@
 const asyncWrapper = require("../middlewares/asyncWrapper.js");
 const { models } = require("../database/connection");
+const axios = require("axios");
 const {
   installment_user_register,
   users,
@@ -84,9 +85,40 @@ exports.createInstallment = asyncWrapper(async (req, res, next) => {
 });
 
 exports.updateInstallment = asyncWrapper(async (req, res, next) => {
-  return res.json("Installment updated");
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = errorResponse.create(errors.array(), 400, httpStatus.ERROR);
+    next(error);
+  }
+  // const data = await
+  return res.json({ status: httpStatus.SUCCESS, data });
 });
 
 exports.deleteInstallment = asyncWrapper(async (req, res, next) => {
   return res.json("Installment deleted");
+});
+
+exports.getUserInstallment = asyncWrapper(async (req, res, next) => {
+  const user = await axios.get("http://localhost:8000/api/get-id", {
+    headers: req.headers,
+  });
+
+  const data = await installment_user_register.findOne({
+    where: { user_id: user.data },
+    include: [
+      {
+        model: rents,
+        as: "rent",
+      },
+      {
+        model: out_appartments,
+        as: "out_appartments",
+      },
+      {
+        model: installments,
+        as: "installments",
+      },
+    ],
+  });
+  return res.json({ status: httpStatus.SUCCESS, data });
 });
