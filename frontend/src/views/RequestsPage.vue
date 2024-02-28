@@ -1,9 +1,8 @@
 <script setup>
 import AppLayout from "@/components/AppLayout.vue";
 import AppNavbar from "@/components/AppNavbar.vue";
-import SearchAddButton from "@/components/Tables/SearchAddButton.vue";
+import SearchAddButton from "@/components/Requests/SearchAddButton.vue";
 import InstallmentsTable from "@/components/Requests/RequestsTable";
-import ShowModle from "@/components/Requests/ShowModel";
 import { onMounted, ref, inject } from "vue";
 import { useStore } from "vuex";
 const checkCookie = inject("checkCookie");
@@ -13,15 +12,6 @@ let requests = ref([]);
 let attributes = ref([]);
 
 // let search_term = "";
-let isShowAddModal = ref(false);
-
-const showAddModal = () => {
-  isShowAddModal.value = true;
-};
-
-const closeAddModal = () => {
-  isShowAddModal.value = false;
-};
 
 const deletProduct = async (id) => {
   await store.dispatch("deleteProduct", id);
@@ -48,13 +38,9 @@ onMounted(async () => {
     <div class="w-full py-8 px-4">
       <SearchAddButton :showModel="showAddModal" />
       <InstallmentsTable
-        :showEditModal="showEditModal"
+        :showAddModal="showAddModal"
         :deletProduct="deletProduct"
         :requests="requests"
-      />
-      <ShowModle
-        :isShowAddModal="isShowAddModal"
-        :closeAddModal="closeAddModal"
       />
     </div>
   </app-layout>
