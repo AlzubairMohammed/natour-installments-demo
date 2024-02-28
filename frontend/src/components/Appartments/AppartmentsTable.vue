@@ -4,7 +4,7 @@ import ShowModal from "@/components/Appartments/ShowModal";
 import EditAppartmentModal from "@/components/Appartments/EditAppartmentModal";
 let page = 1;
 let tot = 1;
-let isShowAddModal = ref(false);
+let isShowModal = ref(false);
 let isShowEditModal = ref(false);
 let appartment = ref({});
 const props = defineProps(["deletProduct", "appartments"]);
@@ -12,8 +12,11 @@ const showEditModal = () => {
   isShowEditModal = true;
 };
 const show = (app) => {
-  isShowAddModal.value = true;
+  isShowModal.value = true;
   appartment = app;
+};
+const closeShowModal = () => {
+  isShowModal.value = false;
 };
 const deletProduct = () => {
   props.deletProduct();
@@ -113,7 +116,11 @@ const deletProduct = () => {
         </nav>
       </div>
     </div>
-    <ShowModal :isShowAddModal="isShowAddModal" :app="appartment" />
+    <ShowModal
+      :isShowModal="isShowModal"
+      :app="appartment"
+      :closeShowModal="closeShowModal"
+    />
     <EditAppartmentModal :isShowEditModal="isShowEditModal" />
   </div>
 </template>
