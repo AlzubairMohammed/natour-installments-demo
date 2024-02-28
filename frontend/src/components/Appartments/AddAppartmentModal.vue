@@ -2,66 +2,25 @@
 import { FwbModal } from "flowbite-vue";
 
 import { useStore } from "vuex";
-import { defineProps, onMounted, ref } from "vue";
-let props = defineProps(["isShowAddModal", "closeAddModal"]);
+import { defineProps, onMounted } from "vue";
+let props = defineProps(["isShowModal", "closeShowModal", "app"]);
 const store = useStore();
-
-let data = ref({
-  product_data: {},
-  images_data: [{}],
-  variation_data: [],
-});
-let attributes = ref([]);
-let categories = ref([]);
-let add_form = ref({});
-
-const add = async () => {
-  await store.dispatch("addProduct", data.value);
-};
-const closeAddModal = () => {
-  props.closeAddModal();
+const closeShowModal = () => {
+  props.closeShowModal();
 };
 onMounted(async () => {
   try {
-    await store.dispatch("fetchAttributes");
-    attributes.value = store.getters.allAttributes;
+    await store.dispatch("getRequest");
   } catch (error) {
     console.error("Error dispatching fetchAttributes:", error);
   }
-  try {
-    await store.dispatch("fetchCategories");
-    categories.value = store.getters.getCategories;
-  } catch (error) {
-    console.error("Error dispatching fetchCategories:", error);
-  }
 });
-const handleBaseProductImageChange = (event) => {
-  const reader = new FileReader();
-  const file = event.target.files[0];
-  reader.onload = () => {
-    data.value.images_data[0].image = reader.result;
-  };
-  reader.readAsDataURL(file);
-};
-const handleVariationProductImageChange = (index, attributeIndex, event) => {
-  const reader = new FileReader();
-  const file = event.target.files[0];
-  reader.onload = () => {
-    data.value.variation_data[index].variation_attributes[
-      attributeIndex
-    ].image = reader.result;
-  };
-  reader.readAsDataURL(file);
-  console.log(
-    data.value.variation_data[index].variation_attributes[attributeIndex].image
-  );
-};
 </script>
 
 <template>
-  <fwb-modal v-if="props.isShowAddModal" @close="closeAddModal">
+  <fwb-modal v-if="props.isShowModal" @close="closeShowModal">
     <template #header>
-      <div class="flex items-center text-lg">اضافة</div>
+      <div class="flex items-center text-lg">عرض تفاصيل الطلب</div>
     </template>
     <template #body>
       <form
@@ -69,290 +28,133 @@ const handleVariationProductImageChange = (index, attributeIndex, event) => {
         @submit.prevent="add()"
         ref="add_form"
       >
-        <div class="p-4 overflow-y-auto">
-          <div class="input-group">
+        <div class="p-4 flex flex-wrap overflow-y-auto">
+          <div class="w-1/2 p-1 input-group">
             <label
               for="username"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >إسم المنتج</label
+              >إسم المالك</label
             >
             <input
               type="text"
               id="name"
-              v-model="data.product_data.name"
+              :value="app.owner_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
+              readonly
             />
           </div>
-          <div class="input-group">
+          <div class="w-1/2 p-1 input-group">
             <label
               for="username"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >سعر الشراء</label
+              >رقم جوال المالك</label
             >
             <input
-              type="number"
+              type="text"
               id="data.product_data.buy_price"
-              v-model="data.product_data.buy_price"
+              :value="app.owner_phone"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
+              readonly
             />
           </div>
-          <div class="input-group">
+          <div class="w-1/2 p-1 input-group">
             <label
               for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >سعر البيع</label
+              >رقم المبنى</label
+            >
+            <input
+              type="text"
+              id="app.building_name"
+              :value="app.building_name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              readonly
+            />
+          </div>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >رقم المبنى</label
             >
             <input
               type="number"
-              id="data.product_data.sale_price"
-              v-model="data.product_data.sale_price"
+              id="app.building_no"
+              :value="app.building_no"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
+              readonly
             />
           </div>
-          <div class="input-group">
+          <div class="w-1/2 p-1 input-group">
             <label
-              for="countries"
+              for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >القسم</label
-            >
-            <select
-              v-model="data.product_data.sub_category_id"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option
-                v-for="category in categories"
-                :key="category.id"
-                :value="category.id"
-              >
-                {{ category.name }}
-              </option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label
-              for="countries"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >نوع المنتج</label
-            >
-            <select
-              v-model="data.product_data.product_type"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            >
-              <option value="basic">مفرد</option>
-              <option value="any">متغير</option>
-            </select>
-          </div>
-          <div class="input-group">
-            <label
-              for="first_name"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >الوصف</label
-            >
-            <textarea
-              id="descr"
-              v-model="data.product_data.descr"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
-            ></textarea>
-          </div>
-          <div class="input-group">
-            <label
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              for="file_input"
-              >الصورة</label
+              >حالة الإجار</label
             >
             <input
-              class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-              id="image"
-              type="file"
-              @change="handleBaseProductImageChange"
-              multiple
+              type="text"
+              id="data.status"
+              :value="app.status ? 'مؤجر' : 'غير مؤجر'"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              readonly
             />
           </div>
-          <!-- variation section -->
-          <div class="roles">
-            <!-- variation title -->
-            <div class="flex justify-between items-center">
-              <h2>تغييرات المنتج</h2>
-              <button
-                @click="
-                  data.variation_data.push({
-                    buy_price,
-                    sale_price,
-                    variation_attributes: [],
-                  })
-                "
-                type="button"
-                class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
-              >
-                <box-icon color="white" name="plus"></box-icon>
-              </button>
-            </div>
-            <!-- variation title -->
-            <!-- variation rendering -->
-            <div v-for="(variation, index) in data.variation_data" :key="index">
-              <div
-                class="overflow-y-auto items-center bg-gray-100 p-4 rounded-xl my-4"
-              >
-                <div class="input-group w-full mx-2">
-                  <label
-                    :for="`edit_phone_${index}`"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >سعر الشراء</label
-                  >
-                  <input
-                    type="number"
-                    :id="`edit_phone_${index}`"
-                    v-model="data.variation_data[index].buy_price"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                  />
-                </div>
-                <div class="input-group w-full mx-2">
-                  <label
-                    :for="`edit_phone_${index}`"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >سعر البيع</label
-                  >
-                  <input
-                    type="number"
-                    :id="`edit_phone_${index}`"
-                    v-model="data.variation_data[index].sale_price"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                  />
-                </div>
-                <!-- attribue titel -->
-                <div class="flex justify-between items-center input-group mx-2">
-                  <h2>اضافة خاصية</h2>
-                  <button
-                    @click="
-                      data.variation_data[index].variation_attributes.push({
-                        attribute_id,
-                        name,
-                        image,
-                      })
-                    "
-                    type="button"
-                    class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-gray-800 text-white hover:bg-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
-                  >
-                    <box-icon color="white" name="plus"></box-icon>
-                  </button>
-                </div>
-                <!-- attribue titel -->
-                <!-- attribute rendering -->
-                <div
-                  v-for="(item, attributeIndex) in data.variation_data[index]
-                    .variation_attributes"
-                  :key="item"
-                  class="bg-blue-100 p-4 rounded-xl my-4"
-                >
-                  <div class="input-group w-full mx-2">
-                    <label
-                      :for="`add_attribute_${attributeIndex}`"
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >الخاصية</label
-                    >
-                    <select
-                      v-model="
-                        data.variation_data[index].variation_attributes[
-                          attributeIndex
-                        ].attribute_id
-                      "
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      :id="`add_attribute_${attributeIndex}`"
-                    >
-                      <option
-                        v-for="attribute in attributes"
-                        :key="attribute.id"
-                        :value="attribute.id"
-                      >
-                        {{ attribute.name }}
-                      </option>
-                    </select>
-                  </div>
-                  <div class="input-group w-full mx-2">
-                    <label
-                      :for="`add_value_${attributeIndex}`"
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      >القيمة</label
-                    >
-                    <input
-                      type="text"
-                      :id="`add_value_${attributeIndex}`"
-                      v-model="
-                        data.variation_data[index].variation_attributes[
-                          attributeIndex
-                        ].name
-                      "
-                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      required
-                    />
-                  </div>
-                  <div class="input-group">
-                    <label
-                      class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                      :for="`add_image_${attributeIndex}`"
-                      >الصورة</label
-                    >
-                    <input
-                      class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                      :id="`add_image_${attributeIndex}`"
-                      @change="
-                        (event) =>
-                          handleVariationProductImageChange(
-                            index,
-                            attributeIndex,
-                            event
-                          )
-                      "
-                      type="file"
-                      multiple
-                    />
-                  </div>
-                  <button
-                    @click="
-                      variation.variation_attributes.splice(attributeIndex, 1)
-                    "
-                    type="button"
-                    class="py-3 px-4 mb-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
-                  >
-                    <box-icon color="white" name="trash"></box-icon>
-                  </button>
-                </div>
-                <!-- attribue rendering -->
-                <button
-                  @click="data.variation_data.splice(index, 1)"
-                  type="button"
-                  class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
-                >
-                  <box-icon color="white" name="trash"></box-icon>
-                </button>
-              </div>
-            </div>
-            <!-- variation rendering -->
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >اسم المدينة</label
+            >
+            <input
+              type="text"
+              id="data.city.name"
+              :value="app.city.name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              readonly
+            />
           </div>
-          <!-- variation section -->
-        </div>
-        <div
-          class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700"
-        >
-          <button
-            type="button"
-            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            @click="closeAddModal()"
-          >
-            الغاء
-          </button>
-          <button
-            type="submit"
-            class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-          >
-            اضافة
-          </button>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >اسم المنطقة</label
+            >
+            <input
+              type="text"
+              id="data.area.name"
+              :value="app.area.name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              readonly
+            />
+          </div>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >خريطة الطول</label
+            >
+            <input
+              type="text"
+              id="data.lat"
+              :value="app.lat"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              readonly
+            />
+          </div>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >خريطة العرض</label
+            >
+            <input
+              type="text"
+              id="data.lng"
+              :value="app.lng"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              readonly
+            />
+          </div>
         </div>
       </form>
     </template>

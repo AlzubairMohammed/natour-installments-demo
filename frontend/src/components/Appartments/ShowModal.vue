@@ -131,7 +131,7 @@ onMounted(async () => {
             <label
               for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >خريطة الطول</label
+              >lat خريطة الطول</label
             >
             <input
               type="text"
@@ -145,7 +145,7 @@ onMounted(async () => {
             <label
               for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >خريطة العرض</label
+              >lng خريطة العرض</label
             >
             <input
               type="text"
@@ -154,6 +154,25 @@ onMounted(async () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
+          </div>
+          <div class="w-full p-1 input-group">
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4"
+            >
+              <div
+                v-for="(image, index) in app.appartment_images"
+                :key="index"
+                class="bg-gray-200 rounded-md overflow-hidden"
+              >
+                <img
+                  :src="
+                    'http://localhost:7070/uploads/appartments/' + image.image
+                  "
+                  alt="Image 1"
+                  class="w-full h-auto"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </form>
