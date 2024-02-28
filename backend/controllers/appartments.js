@@ -76,3 +76,9 @@ exports.updateAppartment = asyncWrapper(async (req, res, next) => {
     next(error);
   }
 });
+
+exports.deleteAppartment = asyncWrapper(async (req, res, next) => {
+  const id = req.params.id;
+  const data = await appartments.destroy({ where: { id } });
+  return res.json({ status: httpStatus.SUCCESS, data });
+});

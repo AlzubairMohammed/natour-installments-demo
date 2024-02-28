@@ -4,11 +4,13 @@ const {
   creatAppartment,
   getAppartment,
   getAppartments,
+  deleteAppartment,
 } = require("../controllers/appartments");
 
 router
   .post("/", appartmentsValidator(), creatAppartment)
   .get("/:id", getAppartment)
-  .get("/", getAppartments);
+  .get("/", getAppartments)
+  .delete("/:id", deleteAppartment);
 
 module.exports = router;
