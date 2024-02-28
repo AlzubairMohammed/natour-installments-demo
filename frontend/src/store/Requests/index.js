@@ -23,6 +23,10 @@ const actions = {
     const data = await request.get(state.url, payload);
     commit("setRequest", data);
   },
+  async updateRequest({ commit, state }, payload) {
+    const data = await request.put(state.url, payload);
+    commit("updateRequest", data);
+  },
 };
 
 const mutations = {
@@ -31,6 +35,13 @@ const mutations = {
   },
   setRequest: (state, request) => {
     state.request = request;
+  },
+  updateRequest: (state, request) => {
+    state.requests.forEach((element) => {
+      if (element.id == request.id) {
+        element = request;
+      }
+    });
   },
 };
 
