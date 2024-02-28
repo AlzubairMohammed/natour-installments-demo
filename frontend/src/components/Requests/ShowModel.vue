@@ -11,9 +11,6 @@ const closeAddModal = () => {
 onMounted(async () => {
   try {
     await store.dispatch("getRequest");
-    // data.value = store.getters.getRequest;
-    // console.log(props.app);
-    // data.value = props.app;
   } catch (error) {
     console.error("Error dispatching fetchAttributes:", error);
   }
@@ -41,7 +38,7 @@ onMounted(async () => {
             <input
               type="text"
               id="name"
-              :value="props.app.name"
+              :value="app.name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -55,7 +52,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.product_data.buy_price"
-              :value="props.app.email"
+              :value="app.email"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -68,8 +65,8 @@ onMounted(async () => {
             >
             <input
               type="number"
-              id="props.app.phone"
-              :value="props.app.phone"
+              id="app.phone"
+              :value="app.phone"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -83,7 +80,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.have_family"
-              :value="props.app.have_family ? 'نعم' : 'لا'"
+              :value="app.have_family ? 'نعم' : 'لا'"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -97,7 +94,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.salary"
-              :value="props.app.salary"
+              :value="app.salary"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -111,7 +108,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.nationality"
-              :value="props.app.nationality"
+              :value="app.nationality"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -125,7 +122,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.gender"
-              :value="props.app.gender ? 'زكر' : 'انثى'"
+              :value="app.gender ? 'زكر' : 'انثى'"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -139,7 +136,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.expect_rent_date"
-              :value="props.app.expect_rent_date"
+              :value="app.expect_rent_date"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -153,7 +150,7 @@ onMounted(async () => {
             <textarea
               readonly
               id="more_info"
-              :value="props.app.more_info"
+              :value="app.more_info"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             ></textarea>
           </div>
@@ -168,7 +165,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="props.app?.rent_id ? 'داخل التطبيق' : 'خارج التطبيق'"
+              :value="app?.rent_id ? 'داخل التطبيق' : 'خارج التطبيق'"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
@@ -182,16 +179,14 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="
-                props.app?.rent[0]?.id || props.app.out_appartments[0]?.id
-              "
+              :value="app?.rent[0]?.id || app.out_appartments[0]?.id"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
           </div>
           <div
             class="w-1/2 p-1 input-group"
-            v-if="props.app?.out_appartments[0]?.owner_name"
+            v-if="app?.out_appartments[0]?.owner_name"
           >
             <label
               for="sale_price"
@@ -201,14 +196,14 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="props.app?.out_appartments[0]?.owner_name"
+              :value="app?.out_appartments[0]?.owner_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
           </div>
           <div
             class="w-1/2 p-1 input-group"
-            v-if="props.app?.out_appartments[0]?.owner_phone"
+            v-if="app?.out_appartments[0]?.owner_phone"
           >
             <label
               for="sale_price"
@@ -218,14 +213,14 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="props.app?.out_appartments[0]?.owner_phone"
+              :value="app?.out_appartments[0]?.owner_phone"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
           </div>
           <div
             class="w-1/2 p-1 input-group"
-            v-if="props.app?.out_appartments[0]?.city?.name"
+            v-if="app?.out_appartments[0]?.city?.name"
           >
             <label
               for="sale_price"
@@ -235,14 +230,14 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="props.app?.out_appartments[0]?.city?.name"
+              :value="app?.out_appartments[0]?.city?.name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
           </div>
           <div
             class="w-1/2 p-1 input-group"
-            v-if="props.app?.out_appartments[0]?.area?.name"
+            v-if="app?.out_appartments[0]?.area?.name"
           >
             <label
               for="sale_price"
@@ -253,14 +248,14 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="props.app?.out_appartments[0]?.area?.name"
+              :value="app?.out_appartments[0]?.area?.name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
           </div>
           <div
             class="w-1/2 p-1 input-group"
-            v-if="props.app?.out_appartments[0]?.is_rented"
+            v-if="app?.out_appartments[0]?.is_rented"
           >
             <label
               for="sale_price"
@@ -270,9 +265,7 @@ onMounted(async () => {
             <input
               type="text"
               id="data.rent"
-              :value="
-                props.app?.out_appartments[0]?.is_rented ? 'مؤجر' : 'غير مؤجر'
-              "
+              :value="app?.out_appartments[0]?.is_rented ? 'مؤجر' : 'غير مؤجر'"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               readonly
             />
