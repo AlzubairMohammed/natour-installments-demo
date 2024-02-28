@@ -11,6 +11,7 @@ CREATE TABLE installment_user_register (
     more_info TEXT,
     user_id BIGINT UNSIGNED,
     expect_rent_date DATE,
+    is_accepted BOOLEAN,
     FOREIGN KEY (rent_id) REFERENCES rents(id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
