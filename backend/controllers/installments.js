@@ -76,6 +76,17 @@ exports.getRequest = asyncWrapper(async (req, res, next) => {
   return res.json({ status: httpStatus.SUCCESS, data });
 });
 
+exports.updateRequest = asyncWrapper(async (req, res, next) => {
+  const id = req.params.id;
+  let data = await installment_user_register.findOne({ where: { id } });
+  if (data) {
+    const request = await installment_user_register.update(req.body, {
+      where: { id },
+    });
+    return res.json({ status: httpStatus.SUCCESS, request });
+  }
+});
+
 exports.getInstallment = asyncWrapper(async (req, res, next) => {
   const id = req.params.id;
   const data = await installments.findOne({

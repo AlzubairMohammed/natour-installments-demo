@@ -12,11 +12,13 @@ const {
   updateInstallment,
   getUserInstallment,
   getRequest,
+  updateRequest,
 } = require("../controllers/installments");
 
 router.post("/user-register", installmentUserRegisterValidator(), userRegister);
 router.get("/requests", getRequests);
 router.get("/requests/:id", getRequest);
+router.put("/requests/:id", updateRequest);
 router
   .get("/", getInstallments)
   .get("/user", getUserInstallment)
