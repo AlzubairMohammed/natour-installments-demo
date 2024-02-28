@@ -2,12 +2,14 @@
 import { defineProps, ref } from "vue";
 import ShowModal from "@/components/Appartments/ShowModal";
 import EditAppartmentModal from "@/components/Appartments/EditAppartmentModal";
+import { useStore } from "vuex";
+const store = useStore();
 let page = 1;
 let tot = 1;
 let isShowModal = ref(false);
 let isShowEditModal = ref(false);
 let appartment = ref({});
-const props = defineProps(["deletProduct", "appartments"]);
+defineProps(["appartments"]);
 const showEditModal = () => {
   isShowEditModal = true;
 };
@@ -18,8 +20,8 @@ const show = (app) => {
 const closeShowModal = () => {
   isShowModal.value = false;
 };
-const deletProduct = () => {
-  props.deletProduct();
+const deleteAppartment = async (id) => {
+  await store.dispatch("deleteAppartment", id);
 };
 </script>
 <template>
@@ -85,7 +87,7 @@ const deletProduct = () => {
                   تعديل
                 </button>
                 <button
-                  @click="deletProduct(app)"
+                  @click="deleteAppartment(app.id)"
                   type="button"
                   class="font-medium text-red-600 mx-2 dark:text-red-500 hover:underline"
                 >

@@ -23,9 +23,6 @@ const closeAddModal = () => {
   isShowAddModal.value = false;
 };
 
-const deletProduct = async (id) => {
-  await store.dispatch("deleteProduct", id);
-};
 onMounted(async () => {
   try {
     await store.dispatch("getAppartments");
@@ -48,10 +45,7 @@ onMounted(async () => {
     <app-navbar :title="'الشقق'"></app-navbar>
     <div class="w-full py-8 px-4">
       <SearchAddButton :showModel="showAddModal" />
-      <AppartmentsTable
-        :deletProduct="deletProduct"
-        :appartments="appartments"
-      />
+      <AppartmentsTable :appartments="appartments" />
       <AddAppartmentModal
         :isShowAddModal="isShowAddModal"
         :closeAddModal="closeAddModal"
