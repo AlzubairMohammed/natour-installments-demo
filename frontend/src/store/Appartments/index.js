@@ -27,6 +27,9 @@ const actions = {
   async deleteAppartment({ state }, payload) {
     await request.delete(state.url, payload);
   },
+  async createAppartment({ state }, payload) {
+    await request.post(state.url, payload);
+  },
 };
 
 const mutations = {

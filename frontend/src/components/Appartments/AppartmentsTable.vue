@@ -2,13 +2,22 @@
 import { defineProps, ref } from "vue";
 import ShowModal from "@/components/Appartments/ShowModal";
 import EditAppartmentModal from "@/components/Appartments/EditAppartmentModal";
+import AddAppartmentModal from "@/components/Appartments/AddAppartmentModal";
+import SearchAddButton from "@/components/Tables/SearchAddButton.vue";
 import { useStore } from "vuex";
 const store = useStore();
 let page = 1;
 let tot = 1;
 let isShowModal = ref(false);
 let isShowEditModal = ref(false);
+let isShowAddModal = ref(false);
 let appartment = ref({});
+const showAddModal = () => {
+  isShowAddModal.value = true;
+};
+const closeAddModal = () => {
+  isShowAddModal.value = false;
+};
 defineProps(["appartments"]);
 const showEditModal = () => {
   isShowEditModal = true;
@@ -26,6 +35,7 @@ const deleteAppartment = async (id) => {
 </script>
 <template>
   <div>
+    <SearchAddButton :showModel="showAddModal" />
     <div class="table w-full">
       <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <table
@@ -124,5 +134,11 @@ const deleteAppartment = async (id) => {
       :closeShowModal="closeShowModal"
     />
     <EditAppartmentModal :isShowEditModal="isShowEditModal" />
+
+    <AddAppartmentModal
+      :showAddModal="showAddModal"
+      :closeAddModal="closeAddModal"
+      :isShowModal="isShowAddModal"
+    />
   </div>
 </template>
