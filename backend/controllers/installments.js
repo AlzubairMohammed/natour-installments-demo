@@ -11,6 +11,7 @@ const {
   installment_months,
   cities,
   areas,
+  appartment_images,
 } = models;
 const httpStatus = require("../utils/httpStatus.js");
 const errorResponse = require("../utils/errorResponse");
@@ -141,7 +142,7 @@ exports.deleteInstallment = asyncWrapper(async (req, res, next) => {
 });
 
 exports.getUserInstallment = asyncWrapper(async (req, res, next) => {
-  const user = await axios.get("http://localhost:80/api/get-id", {
+  const user = await axios.get("http://localhost:8000/api/get-id", {
     headers: req.headers,
   });
 
@@ -153,12 +154,19 @@ exports.getUserInstallment = asyncWrapper(async (req, res, next) => {
         as: "rent",
       },
       {
-        model: out_appartments,
-        as: "out_appartments",
-      },
-      {
         model: installments,
         as: "installments",
+        include: [
+          {
+            model: installment_months,
+            as: "installment_months",
+          },
+          {
+            model: appartments,
+            as: "appartment",
+            include: [{ model: appartment_images, as: "appartment_images" }],
+          },
+        ],
       },
     ],
   });
