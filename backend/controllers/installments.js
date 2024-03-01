@@ -93,7 +93,11 @@ exports.getInstallment = asyncWrapper(async (req, res, next) => {
   const data = await installments.findOne({
     where: { id },
     include: [
-      { model: appartments, as: "appartment" },
+      {
+        model: appartments,
+        as: "appartment",
+        include: [{ model: appartment_images, as: "appartment_images" }],
+      },
       { model: installment_user_register, as: "installment_user_register" },
       { model: installment_months, as: "installment_months" },
     ],
