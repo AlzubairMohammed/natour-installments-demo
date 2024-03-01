@@ -5,20 +5,20 @@ import { useStore } from "vuex";
 import { defineProps, onMounted, ref } from "vue";
 let props = defineProps([
   "isShowAddModal",
-  "closeAddModal",
+  "closeShowModal",
   "app",
   "isShowAcceptRquesModal",
   "accept",
 ]);
 const add_form = ref({});
 const store = useStore();
-const closeAddModal = () => {
-  props.closeAddModal();
+const closeShowModal = () => {
+  props.closeShowModal();
 };
 const accept = (app) => {
   // const payload = new FormData(add_form.value);
   console.log("hi from accept");
-  props.closeAddModal();
+  props.closeShowModal();
   props.accept(app);
 };
 onMounted(async () => {
@@ -31,7 +31,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <fwb-modal v-if="props.isShowAddModal" @close="closeAddModal">
+  <fwb-modal v-if="props.isShowAddModal" @close="closeShowModal">
     <template #header>
       <div class="flex items-center text-lg">عرض تفاصيل الطلب</div>
     </template>
@@ -278,7 +278,7 @@ onMounted(async () => {
           <button
             type="button"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            @click="closeAddModal()"
+            @click="closeShowModal()"
           >
             الغاء
           </button>

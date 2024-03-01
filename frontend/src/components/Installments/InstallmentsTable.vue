@@ -13,6 +13,9 @@ const show = (app) => {
   isShowModal.value = true;
   appartment = app;
 };
+const closeShowModal = () => {
+  isShowModal.value = false;
+};
 // const deletProduct = () => {
 //   props.deletProduct();
 // };
@@ -114,7 +117,7 @@ const show = (app) => {
     <ShowModal
       :isShowAddModal="isShowModal"
       :app="appartment"
-      :closeAddModal="closeShowModal"
+      :closeShowModal="closeShowModal"
     />
   </div>
 </template>
