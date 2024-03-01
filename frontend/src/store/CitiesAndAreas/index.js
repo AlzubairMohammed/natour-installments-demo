@@ -1,5 +1,4 @@
 import axios from "axios";
-import request from "@/services/request";
 const state = {
   cities: [],
   areas: [],

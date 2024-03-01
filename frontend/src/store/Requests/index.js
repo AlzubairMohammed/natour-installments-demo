@@ -1,8 +1,11 @@
 import request from "@/services/request";
+import axios from "axios";
+import responseAlert from "../../services/sweet_alert";
 const state = {
   requests: [],
   request: {},
   url: "installments/requests",
+  updateUrl: "http://localhost:7070/api/v1/installments/requests",
 };
 
 const getters = {
@@ -24,7 +27,12 @@ const actions = {
     commit("setRequest", data);
   },
   async updateRequest({ commit, state }, payload) {
-    const data = await request.put(state.url, payload);
+    const data = await axios.put(`${state.updateUrl}/${payload.id}`, payload);
+    if (data.data.request[0]) {
+      responseAlert("success", "نجاح", "تم رفض الطلب");
+    } else {
+      responseAlert("error", "خطاء", "عفوا حدث خطاء ما ");
+    }
     commit("updateRequest", data);
   },
 };

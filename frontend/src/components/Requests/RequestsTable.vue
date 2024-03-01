@@ -1,8 +1,10 @@
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, onMounted, ref } from "vue";
 import ShowModle from "@/components/Requests/ShowModel";
 import AcceptRequesModal from "@/components/Requests/AcceptRequesModal";
-defineProps(["requests"]);
+import { useStore } from "vuex";
+let props = defineProps(["requests"]);
+const store = useStore();
 
 let page = 1;
 let tot = 1;
@@ -17,7 +19,6 @@ const closeAcceptRquestModal = () => {
   isShowAcceptRquesModal.value = false;
 };
 const showAddModal = async (app) => {
-  // console.log(app.id);
   app.rent ? app.rent : (app.rent = []);
   data.value = app;
   isShowAddModal.value = true;
@@ -26,6 +27,14 @@ const accept = (app) => {
   acceptData.value = app;
   isShowAcceptRquesModal.value = true;
 };
+const reject = async (app) => {
+  data = { is_accepted: false, id: app.id };
+  await store.dispatch("updateRequest", data);
+};
+onMounted(() => {
+  console.log(props.requests);
+  return props.requests.filter((item) => item.is_accepted === null);
+});
 </script>
 <template>
   <div>

@@ -6,7 +6,7 @@ import { defineProps, onMounted, ref } from "vue";
 let props = defineProps(["isShowModal", "closeShowModal", "app"]);
 const store = useStore();
 let add_form = ref({});
-
+let cities = ref([]);
 const closeShowModal = () => {
   props.closeShowModal();
 };
@@ -15,7 +15,6 @@ onMounted(async () => {
   try {
     await store.dispatch("getCities");
     cities.value = store.getters.getCities;
-    console.log(cities.value);
   } catch (error) {
     console.error("Error dispatching getCities:", error);
   }
