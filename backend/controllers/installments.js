@@ -142,7 +142,7 @@ exports.deleteInstallment = asyncWrapper(async (req, res, next) => {
 });
 
 exports.getUserInstallment = asyncWrapper(async (req, res, next) => {
-  const user = await axios.get("http://localhost/api/get-id", {
+  const user = await axios.get("http://127.0.0.1:8000/api/get-id", {
     headers: req.headers,
   });
 
