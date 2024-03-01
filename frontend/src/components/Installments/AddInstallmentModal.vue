@@ -23,12 +23,6 @@ const closeAddModal = () => {
 };
 onMounted(async () => {
   try {
-    await store.dispatch("fetchAttributes");
-    attributes.value = store.getters.allAttributes;
-  } catch (error) {
-    console.error("Error dispatching fetchAttributes:", error);
-  }
-  try {
     await store.dispatch("fetchCategories");
     categories.value = store.getters.getCategories;
   } catch (error) {

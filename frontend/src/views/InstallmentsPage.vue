@@ -11,7 +11,6 @@ const checkCookie = inject("checkCookie");
 const store = useStore();
 
 let installments = ref([]);
-let attributes = ref([]);
 
 // let search_term = "";
 let isShowAddModal = ref(false);
@@ -37,12 +36,6 @@ onMounted(async () => {
   try {
     await store.dispatch("fetchInstallments");
     installments.value = store.getters.getInstallments;
-  } catch (error) {
-    console.error("Error dispatching fetchProducts:", error);
-  }
-  try {
-    // await store.dispatch("fetchAttributes");
-    attributes.value = store.getters.allAttributes;
   } catch (error) {
     console.error("Error dispatching fetchProducts:", error);
   }

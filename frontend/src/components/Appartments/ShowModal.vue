@@ -1,20 +1,14 @@
 <script setup>
 import { FwbModal } from "flowbite-vue";
 
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
 import { defineProps, onMounted } from "vue";
 let props = defineProps(["isShowModal", "closeShowModal", "app"]);
-const store = useStore();
+// const store = useStore();
 const closeShowModal = () => {
   props.closeShowModal();
 };
-onMounted(async () => {
-  try {
-    await store.dispatch("getRequest");
-  } catch (error) {
-    console.error("Error dispatching fetchAttributes:", error);
-  }
-});
+onMounted(async () => {});
 </script>
 
 <template>

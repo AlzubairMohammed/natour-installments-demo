@@ -9,7 +9,6 @@ const checkCookie = inject("checkCookie");
 const store = useStore();
 
 let appartments = ref([]);
-let attributes = ref([]);
 
 // let search_term = "";
 // let isShowAddModal = ref(false);
@@ -22,12 +21,6 @@ onMounted(async () => {
   try {
     await store.dispatch("getAppartments");
     appartments.value = store.getters.getAppartments;
-  } catch (error) {
-    console.error("Error dispatching fetchProducts:", error);
-  }
-  try {
-    // await store.dispatch("fetchAttributes");
-    attributes.value = store.getters.allAttributes;
   } catch (error) {
     console.error("Error dispatching fetchProducts:", error);
   }

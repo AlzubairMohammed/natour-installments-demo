@@ -6,19 +6,30 @@ import { defineProps, onMounted, ref } from "vue";
 let props = defineProps(["isShowModal", "closeShowModal", "app"]);
 const store = useStore();
 let add_form = ref({});
+let cities = ref([]);
+let areas = ref([]);
 const closeShowModal = () => {
   props.closeShowModal();
 };
+const rentTypes = ref(["غرفة", "شقة", "جناح", "بارتشن"]);
 onMounted(async () => {
   try {
-    await store.dispatch("getRequest");
+    await store.dispatch("getCities");
+    cities.value = store.getters.getCities;
+    console.log(cities.value);
   } catch (error) {
-    console.error("Error dispatching fetchAttributes:", error);
+    console.error("Error dispatching getCities:", error);
   }
 });
 const add = async () => {
   const payload = new FormData(add_form.value);
   await store.dispatch("createAppartment", payload);
+};
+const getAreasCity = async (event) => {
+  console.log(event.target.value);
+  await store.dispatch("getAreas", event.target.value);
+  console.log("hi from area");
+  areas.value = store.getters.getAreas;
 };
 </script>
 
@@ -66,7 +77,21 @@ const add = async () => {
             <label
               for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >رقم المبنى</label
+              >السعر</label
+            >
+            <input
+              type="number"
+              id="building_name"
+              name="price"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+            />
+          </div>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >اسم المبنى</label
             >
             <input
               type="text"
@@ -94,12 +119,12 @@ const add = async () => {
             <label
               for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >حالة الإجار</label
+              >اسم الشارع</label
             >
             <input
               type="text"
-              id="status"
-              name="status"
+              id="building_no"
+              name="street_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -108,15 +133,37 @@ const add = async () => {
             <label
               for="sale_price"
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >اسم المدينة</label
+              >حالة الإجار</label
             >
-            <input
-              type="text"
-              id="city"
-              name="city"
+            <select
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
-            />
+              :id="`add_attribute`"
+              name="status"
+            >
+              <option :value="1">
+                {{ "مؤجر" }}
+              </option>
+              <option :value="0">
+                {{ "غير مؤجر" }}
+              </option>
+            </select>
+          </div>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              for="sale_price"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >المدينة</label
+            >
+            <select
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :id="`add_attribute`"
+              name="city_id"
+              @change="getAreasCity"
+            >
+              <option v-for="city in cities" :value="city.id" :key="city.id">
+                {{ city.name }}
+              </option>
+            </select>
           </div>
           <div class="w-1/2 p-1 input-group">
             <label
@@ -124,13 +171,15 @@ const add = async () => {
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >اسم المنطقة</label
             >
-            <input
-              type="text"
-              id="area"
-              name="area"
+            <select
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
-            />
+              :id="`add_attribute`"
+              name="area_id"
+            >
+              <option v-for="area in areas" :value="area.id" :key="area.id">
+                {{ area.name }}
+              </option>
+            </select>
           </div>
           <div class="w-1/2 p-1 input-group">
             <label
@@ -159,6 +208,26 @@ const add = async () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
+          </div>
+          <div class="w-1/2 p-1 input-group">
+            <label
+              :for="`add_attribute`"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+              >النوع</label
+            >
+            <select
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              :id="`add_attribute`"
+              name="type"
+            >
+              <option
+                v-for="rentType in rentTypes"
+                :key="rentType"
+                :value="rentTypes.indexOf(rentType)"
+              >
+                {{ rentType }}
+              </option>
+            </select>
           </div>
           <div class="w-full input-group">
             <label
