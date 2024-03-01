@@ -1,20 +1,30 @@
 <script setup>
 import { defineProps, ref } from "vue";
 import ShowModle from "@/components/Requests/ShowModel";
+import AcceptRequesModal from "@/components/Requests/AcceptRequesModal";
 defineProps(["requests"]);
 
 let page = 1;
 let tot = 1;
 let isShowAddModal = ref(false);
+let isShowAcceptRquesModal = ref(false);
+let acceptData = ref({});
 let data = ref({});
 const closeAddModal = () => {
   isShowAddModal.value = false;
+};
+const closeAcceptRquestModal = () => {
+  isShowAcceptRquesModal.value = false;
 };
 const showAddModal = async (app) => {
   // console.log(app.id);
   app.rent ? app.rent : (app.rent = []);
   data.value = app;
   isShowAddModal.value = true;
+};
+const accept = (app) => {
+  acceptData.value = app;
+  isShowAcceptRquesModal.value = true;
 };
 </script>
 <template>
@@ -115,6 +125,11 @@ const showAddModal = async (app) => {
       :isShowAddModal="isShowAddModal"
       :closeAddModal="closeAddModal"
       :app="data"
+    />
+    <AcceptRequesModal
+      :app="acceptData"
+      :isShowModal="isShowAcceptRquesModal"
+      :closeShowModal="closeAcceptRquestModal"
     />
   </div>
 </template>

@@ -27,6 +27,10 @@ const actions = {
     const response = await request.get(state.url);
     commit("setInstallments", response.data);
   },
+  async createInstallment({ state }, payload) {
+    await request.post(state.url, payload);
+  },
+
   async fetchCategories({ commit, state }) {
     const response = await request.get(state.get_categories_url);
     commit("setCategories", response.data);
