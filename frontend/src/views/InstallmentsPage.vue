@@ -16,9 +16,9 @@ let installments = ref([]);
 let isShowAddModal = ref(false);
 let isShowEditModal = ref(false);
 
-const showAddModal = () => {
-  isShowAddModal.value = true;
-};
+// const showAddModal = () => {
+//   isShowAddModal.value = true;
+// };
 const closeAddModal = () => {
   isShowAddModal.value = false;
 };
@@ -47,7 +47,7 @@ onMounted(async () => {
   <app-layout>
     <app-navbar :title="'الاقساط'"></app-navbar>
     <div class="w-full py-8 px-4">
-      <SearchAddButton :showModel="showAddModal" />
+      <SearchAddButton />
       <InstallmentsTable
         :showEditModal="showEditModal"
         :deletProduct="deletProduct"
