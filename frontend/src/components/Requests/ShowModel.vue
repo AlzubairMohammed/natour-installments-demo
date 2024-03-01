@@ -2,11 +2,24 @@
 import { FwbModal } from "flowbite-vue";
 
 import { useStore } from "vuex";
-import { defineProps, onMounted } from "vue";
-let props = defineProps(["isShowAddModal", "closeAddModal", "app"]);
+import { defineProps, onMounted, ref } from "vue";
+let props = defineProps([
+  "isShowAddModal",
+  "closeAddModal",
+  "app",
+  "isShowAcceptRquesModal",
+  "accept",
+]);
+const add_form = ref({});
 const store = useStore();
 const closeAddModal = () => {
   props.closeAddModal();
+};
+const accept = (app) => {
+  // const payload = new FormData(add_form.value);
+  console.log("hi from accept");
+  props.closeAddModal();
+  props.accept(app);
 };
 onMounted(async () => {
   try {
@@ -25,9 +38,15 @@ onMounted(async () => {
     <template #body>
       <form
         enctype="multipart/form-data"
-        @submit.prevent="add()"
+        @submit.prevent="accept(app)"
         ref="add_form"
       >
+        <input
+          type="text"
+          name="installment_user_register_id"
+          :value="app.id"
+          hidden
+        />
         <div class="p-4 flex flex-wrap overflow-y-auto">
           <div class="w-1/2 p-1 input-group">
             <label

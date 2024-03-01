@@ -124,7 +124,9 @@ const accept = (app) => {
     <ShowModle
       :isShowAddModal="isShowAddModal"
       :closeAddModal="closeAddModal"
+      :isShowAcceptRquesModal="isShowAcceptRquesModal"
       :app="data"
+      :accept="accept"
     />
     <AcceptRequesModal
       :app="acceptData"
