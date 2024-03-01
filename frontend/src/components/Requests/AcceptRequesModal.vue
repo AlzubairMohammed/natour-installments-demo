@@ -3,7 +3,7 @@ import { FwbModal } from "flowbite-vue";
 
 import { useStore } from "vuex";
 import { defineProps, onMounted, ref } from "vue";
-let props = defineProps(["isShowEditModal", "closeShowModal", "app"]);
+let props = defineProps(["isShowModal", "closeShowModal", "app"]);
 const store = useStore();
 let add_form = ref({});
 let cities = ref([]);
@@ -23,7 +23,7 @@ onMounted(async () => {
 });
 const add = async () => {
   const payload = new FormData(add_form.value);
-  await store.dispatch("updateAppartment", payload);
+  await store.dispatch("createAppartment", payload);
 };
 const getAreasCity = async (event) => {
   console.log(event.target.value);
@@ -34,7 +34,7 @@ const getAreasCity = async (event) => {
 </script>
 
 <template>
-  <fwb-modal v-if="isShowEditModal" @close="closeShowModal">
+  <fwb-modal v-if="isShowModal" @close="closeShowModal">
     <template #header>
       <div class="flex items-center text-lg">عرض تفاصيل الطلب</div>
     </template>
@@ -55,7 +55,6 @@ const getAreasCity = async (event) => {
               type="text"
               id="name"
               name="owner_name"
-              :value="app.owner_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -70,7 +69,6 @@ const getAreasCity = async (event) => {
               type="text"
               id="product_buy_price"
               name="owner_phone"
-              :value="app.owner_phone"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -85,7 +83,6 @@ const getAreasCity = async (event) => {
               type="number"
               id="building_name"
               name="price"
-              :value="app.price"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -100,7 +97,6 @@ const getAreasCity = async (event) => {
               type="text"
               id="building_name"
               name="building_name"
-              :value="app.building_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -115,7 +111,6 @@ const getAreasCity = async (event) => {
               type="number"
               id="building_no"
               name="building_no"
-              :value="app.building_no"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -130,7 +125,6 @@ const getAreasCity = async (event) => {
               type="text"
               id="building_no"
               name="street_name"
-              :value="app.street_name"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -145,7 +139,6 @@ const getAreasCity = async (event) => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               :id="`add_attribute`"
               name="status"
-              :value="app.status"
             >
               <option :value="1">
                 {{ "مؤجر" }}
@@ -182,7 +175,6 @@ const getAreasCity = async (event) => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               :id="`add_attribute`"
               name="area_id"
-              :value="app.area.id"
             >
               <option v-for="area in areas" :value="area.id" :key="area.id">
                 {{ area.name }}
@@ -199,7 +191,6 @@ const getAreasCity = async (event) => {
               type="text"
               id="lat"
               name="lat"
-              :value="app.lat"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -214,7 +205,6 @@ const getAreasCity = async (event) => {
               type="text"
               id="lng"
               name="lng"
-              :value="app.lng"
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               required
             />
@@ -229,7 +219,6 @@ const getAreasCity = async (event) => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               :id="`add_attribute`"
               name="type"
-              :value="app.type"
             >
               <option
                 v-for="rentType in rentTypes"
@@ -261,7 +250,7 @@ const getAreasCity = async (event) => {
           <button
             type="button"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            @click="closeShowModal"
+            @click="closeAddModal()"
           >
             الغاء
           </button>
@@ -269,7 +258,7 @@ const getAreasCity = async (event) => {
             type="submit"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
           >
-            تعديل
+            اضافة
           </button>
         </div>
       </form>

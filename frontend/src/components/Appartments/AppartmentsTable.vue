@@ -19,8 +19,14 @@ const closeAddModal = () => {
   isShowAddModal.value = false;
 };
 defineProps(["appartments"]);
-const showEditModal = () => {
-  isShowEditModal = true;
+const showEditModal = (app) => {
+  console.log("edit modal");
+  isShowEditModal.value = true;
+  appartment = app;
+  console.log(app);
+};
+const closeEditModal = () => {
+  isShowEditModal.value = false;
 };
 const show = (app) => {
   isShowModal.value = true;
@@ -133,7 +139,11 @@ const deleteAppartment = async (id) => {
       :app="appartment"
       :closeShowModal="closeShowModal"
     />
-    <EditAppartmentModal :isShowEditModal="isShowEditModal" />
+    <EditAppartmentModal
+      :isShowEditModal="isShowEditModal"
+      :closeShowModal="closeEditModal"
+      :app="appartment"
+    />
 
     <AddAppartmentModal
       :showAddModal="showAddModal"

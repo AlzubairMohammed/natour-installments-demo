@@ -21,7 +21,7 @@ const actions = {
     commit("setAppartments", response.data);
   },
   async getAppartment({ state, commit }, payload) {
-    const response = await request.get(state.url, payload);
+    const response = await request.get(`${state.url}/${payload.id}`, payload);
     commit("setAppartment", response.data);
   },
   async deleteAppartment({ state }, payload) {
@@ -29,6 +29,9 @@ const actions = {
   },
   async createAppartment({ state }, payload) {
     await request.post(state.url, payload);
+  },
+  async updateAppartment({ state }, payload) {
+    await request.put(state.url, payload);
   },
 };
 
