@@ -20,7 +20,8 @@ const getters = {
 const actions = {
   async fetchRequests({ commit, state }) {
     const response = await request.get(state.url);
-    commit("setRequests", response.data);
+    const data = response.data.filter((item) => item.is_accepted === null);
+    commit("setRequests", data);
   },
   async getRequest({ commit, state }, payload) {
     const data = await request.get(state.url, payload);

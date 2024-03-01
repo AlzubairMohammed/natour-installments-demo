@@ -6,9 +6,9 @@ const props = defineProps(["showEditModal", "deletProduct", "installments"]);
 const showEditModal = () => {
   props.showEditModal();
 };
-const deletProduct = () => {
-  props.deletProduct();
-};
+// const deletProduct = () => {
+//   props.deletProduct();
+// };
 </script>
 <template>
   <div class="table w-full">
@@ -71,13 +71,13 @@ const deletProduct = () => {
               >
                 تعديل
               </button>
-              <button
+              <!-- <button
                 @click="deletProduct(app)"
                 type="button"
                 class="font-medium text-red-600 mx-2 dark:text-red-500 hover:underline"
               >
                 حذف
-              </button>
+              </button> -->
             </td>
           </tr>
         </tbody>

@@ -51,6 +51,7 @@ const deleteAppartment = async (id) => {
             class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
           >
             <tr>
+              <th scope="col" class="px-6 py-3 text-center">الترتيب</th>
               <th scope="col" class="px-6 py-3 text-center">الرقم</th>
               <th scope="col" class="px-6 py-3 text-center">اسم المالك</th>
               <th scope="col" class="px-6 py-3 text-center">رقم الجوال</th>
@@ -72,6 +73,9 @@ const deleteAppartment = async (id) => {
               >
                 {{ ++index }}
               </th>
+              <td class="px-6 py-4 text-center">
+                {{ app?.id }}
+              </td>
               <td class="px-6 py-4 text-center">
                 {{ app?.owner_name }}
               </td>
