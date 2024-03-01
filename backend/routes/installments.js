@@ -21,7 +21,7 @@ router.get("/requests/:id", getRequest);
 router.put("/requests/:id", updateRequest);
 router
   .get("/", getInstallments)
-  .get("/user", getUserInstallment)
+  .get("/user/:id", getUserInstallment)
   .post("/", createInstallment)
   .get("/:id", getInstallment)
   .delete("/:id", deleteInstallment)
