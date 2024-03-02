@@ -129,11 +129,23 @@ exports.createInstallment = asyncWrapper(async (req, res, next) => {
     const error = errorResponse.create(errors.array(), 400, httpStatus.ERROR);
     next(error);
   }
+  const appartmentId = req.body.appartment_id;
+  const appartment = await appartments.findOne({ where: { id: appartmentId } });
   let data = await installments.create(req.body);
   const installment_id = data.id;
-  let i = 8;
-  while (i--) {
-    await installment_months.create({ installment_id });
+  let now = new Date(req.body.installment_start_date);
+
+  for (let index = 0; index < 12; index++) {
+    let nextMonthDate = new Date(
+      now.getFullYear(),
+      now.getMonth() + index,
+      now.getDate()
+    );
+    await installment_months.create({
+      installment_id,
+      date: nextMonthDate,
+      price: appartment.price / 12,
+    });
   }
   return res.json({ status: httpStatus.SUCCESS, data });
 });
