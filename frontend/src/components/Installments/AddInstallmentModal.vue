@@ -21,14 +21,7 @@ const add = async () => {
 const closeAddModal = () => {
   props.closeAddModal();
 };
-onMounted(async () => {
-  try {
-    await store.dispatch("fetchCategories");
-    categories.value = store.getters.getCategories;
-  } catch (error) {
-    console.error("Error dispatching fetchCategories:", error);
-  }
-});
+onMounted(async () => {});
 const handleBaseProductImageChange = (event) => {
   const reader = new FileReader();
   const file = event.target.files[0];

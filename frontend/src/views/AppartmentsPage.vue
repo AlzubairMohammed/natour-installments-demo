@@ -22,7 +22,7 @@ onMounted(async () => {
     await store.dispatch("getAppartments");
     appartments.value = store.getters.getAppartments;
   } catch (error) {
-    console.error("Error dispatching fetchProducts:", error);
+    console.error("Error dispatching getAppartments:", error);
   }
   checkCookie();
 });
