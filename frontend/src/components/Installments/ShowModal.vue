@@ -271,6 +271,84 @@ onMounted(async () => {
               readonly
             />
           </div>
+          <!-- mounths -->
+          <h1>تفاصيل الاشهر</h1>
+          <div class="w-full border-t border-gray-400 my-3"></div>
+          <div
+            v-for="(item, index) in app.installment_months"
+            :key="item"
+            class="w-full bg-blue-100 p-4 rounded-xl my-4 flex flex-wrap"
+          >
+            <div class="w-1/2 input-group pr-2 pl-2">
+              <label
+                :for="`add_value_${index}`"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >التاريخ</label
+              >
+              <input
+                type="text"
+                :id="`add_value_${index}`"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                :value="item.date"
+                readonly
+              />
+            </div>
+            <div class="w-1/2 input-group pr-2 pl-2">
+              <label
+                :for="`add_value_${index}`"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >السعر</label
+              >
+              <input
+                type="text"
+                :id="`add_value_${index}`"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                :value="`${item.price} درهم`"
+                readonly
+              />
+            </div>
+            <div class="w-1/2 input-group pr-2 pl-2">
+              <label
+                :for="`add_value_${index}`"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >حالة الدفع</label
+              >
+              <input
+                type="text"
+                :id="`add_value_${index}`"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                :value="item.status ? 'مدفوع' : 'غير مدفوع'"
+                readonly
+              />
+            </div>
+            <div class="w-1/2 input-group pr-2 pl-2">
+              <label
+                :for="`add_value_${index}`"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >تاريخ الدفع</label
+              >
+              <input
+                type="text"
+                :id="`add_value_${index}`"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                :value="
+                  item.paid_date
+                    ? item.paid_date
+                    : 'يظهر عندما يقوم العميل بالدفع'
+                "
+                readonly
+              />
+            </div>
+            <div class="w-full input-group pr-2 pl-2">
+              <button
+                type="button"
+                class="py-3 px-4 mb-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-900 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 dark:bg-white dark:text-gray-800"
+              >
+                تعديل
+              </button>
+            </div>
+          </div>
+          <!-- mounths -->
         </div>
         <div
           class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700"
