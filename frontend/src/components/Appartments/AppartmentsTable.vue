@@ -151,7 +151,7 @@ const closeShowModal = () => {
 
     <AddAppartmentModal
       :showAddModal="showAddModal"
-      :closeAddModal="closeAddModal"
+      :closeShowModal="closeAddModal"
       :isShowModal="isShowAddModal"
     />
   </div>

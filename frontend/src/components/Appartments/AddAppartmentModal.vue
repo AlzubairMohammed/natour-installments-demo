@@ -140,6 +140,7 @@ const getAreasCity = async (event) => {
               :id="`add_attribute`"
               name="status"
             >
+              <option>{{ "اختيار" }}</option>
               <option :value="1">
                 {{ "مؤجر" }}
               </option>
@@ -160,6 +161,7 @@ const getAreasCity = async (event) => {
               name="city_id"
               @change="getAreasCity"
             >
+              <option>{{ "اختيار" }}</option>
               <option v-for="city in cities" :value="city.id" :key="city.id">
                 {{ city.name }}
               </option>
@@ -176,6 +178,7 @@ const getAreasCity = async (event) => {
               :id="`add_attribute`"
               name="area_id"
             >
+              <option>{{ "اختيار" }}</option>
               <option v-for="area in areas" :value="area.id" :key="area.id">
                 {{ area.name }}
               </option>
@@ -220,6 +223,7 @@ const getAreasCity = async (event) => {
               :id="`add_attribute`"
               name="type"
             >
+              <option>{{ "اختيار" }}</option>
               <option
                 v-for="rentType in rentTypes"
                 :key="rentType"
@@ -250,7 +254,7 @@ const getAreasCity = async (event) => {
           <button
             type="button"
             class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-            @click="closeAddModal()"
+            @click="closeShowModal()"
           >
             الغاء
           </button>

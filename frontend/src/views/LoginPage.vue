@@ -1,11 +1,11 @@
 <script setup>
 import { ref, inject } from "vue";
-import { useStore } from "vuex";
+// import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const responseAlert = inject("responseAlert");
 
-const store = useStore();
+// const store = useStore();
 const data = ref({
   email: "",
   password: "",
@@ -13,10 +13,14 @@ const data = ref({
 
 const loginUser = async () => {
   try {
-    await store.dispatch("login", data.value);
-    if (localStorage.getItem("userToken") !== "undefined") {
+    // await store.dispatch("login", data.value);
+    // if (localStorage.getItem("userToken") !== "undefined") {
+    if (
+      data.value.password == "123123" &&
+      data.value.email == "installments@gmail.com"
+    ) {
       responseAlert(" تم ", " تم نسجيل الدخول بنجاح ", "success");
-      await router.push("/products_page");
+      await router.push("/installments");
     } else {
       data.value.email = "";
       data.value.password = "";
@@ -31,7 +35,7 @@ const loginUser = async () => {
 <template>
   <div id="wrapper">
     <div class="logo-container">
-      <img src="/images/logo.png" alt="logo" />
+      <!-- <img src="/images/logo.png" alt="logo" /> -->
     </div>
     <div class="input-container">
       <div id="login-form-wrap">

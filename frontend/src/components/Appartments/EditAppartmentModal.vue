@@ -147,6 +147,7 @@ const getAreasCity = async (event) => {
               name="status"
               :value="app.status"
             >
+              <!-- <option></option> -->
               <option :value="1">
                 {{ "مؤجر" }}
               </option>
