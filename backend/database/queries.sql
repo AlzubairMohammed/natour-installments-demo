@@ -77,3 +77,8 @@ CREATE TABLE appartment_images(
     FOREIGN KEY (appartment_id) REFERENCES appartments(id) ON DELETE CASCADE
 );
 
+CREATE TABLE installments_users(
+     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+     email VARCHAR(255),
+     password VARCHAR(255)
+)

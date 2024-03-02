@@ -1,6 +1,5 @@
 const asyncWrapper = require("../middlewares/asyncWrapper.js");
 const { models } = require("../database/connection");
-const axios = require("axios");
 const {
   installment_user_register,
   users,
