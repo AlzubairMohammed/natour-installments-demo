@@ -7,6 +7,7 @@ let props = defineProps(["isShowModal", "closeShowModal", "app"]);
 const store = useStore();
 let add_form = ref({});
 let cities = ref([]);
+let isInstallmentCreated = ref(false);
 const closeShowModal = () => {
   props.closeShowModal();
 };
@@ -22,6 +23,12 @@ onMounted(async () => {
 const add = async () => {
   const payload = new FormData(add_form.value);
   await store.dispatch("createInstallment", payload);
+  isInstallmentCreated.value = store.getters.getIsInstallmentCreated;
+  console.log("hi from", isInstallmentCreated.value);
+  if (isInstallmentCreated.value) {
+    let data = { is_accepted: true, id: props.app.id };
+    await store.dispatch("updateRequest", data);
+  }
 };
 </script>
 

@@ -1,6 +1,7 @@
 import request from "@/services/request";
 const state = {
   installments: [],
+  isInstallmentCreated: false,
   Categories: [],
   url: "installments",
   addError: [],
@@ -20,6 +21,9 @@ const getters = {
   getCategories: (state) => {
     return state.Categories;
   },
+  getIsInstallmentCreated: (state) => {
+    return state.isInstallmentCreated;
+  },
 };
 
 const actions = {
@@ -28,7 +32,7 @@ const actions = {
     commit("setInstallments", response.data);
   },
   async createInstallment({ state }, payload) {
-    await request.post(state.url, payload);
+    state.isInstallmentCreated = await request.post(state.url, payload);
   },
 
   async fetchCategories({ commit, state }) {

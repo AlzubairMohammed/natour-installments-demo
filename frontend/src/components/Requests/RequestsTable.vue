@@ -26,8 +26,6 @@ const showAddModal = async (app) => {
 const accept = async (app) => {
   acceptData.value = app;
   isShowAcceptRquesModal.value = true;
-  data = { is_accepted: true, id: app.id };
-  await store.dispatch("updateRequest", data);
 };
 const reject = async (app) => {
   data = { is_accepted: false, id: app.id };

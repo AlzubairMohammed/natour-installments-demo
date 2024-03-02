@@ -4,8 +4,8 @@ import ShowModal from "@/components/Appartments/ShowModal";
 import EditAppartmentModal from "@/components/Appartments/EditAppartmentModal";
 import AddAppartmentModal from "@/components/Appartments/AddAppartmentModal";
 import SearchAddButton from "@/components/Tables/SearchAddButton.vue";
-import { useStore } from "vuex";
-const store = useStore();
+// import { useStore } from "vuex";
+// const store = useStore();
 let page = 1;
 let tot = 1;
 let isShowModal = ref(false);
@@ -35,9 +35,9 @@ const show = (app) => {
 const closeShowModal = () => {
   isShowModal.value = false;
 };
-const deleteAppartment = async (id) => {
-  await store.dispatch("deleteAppartment", id);
-};
+// const deleteAppartment = async (id) => {
+//   await store.dispatch("deleteAppartment", id);
+// };
 </script>
 <template>
   <div>
@@ -106,13 +106,13 @@ const deleteAppartment = async (id) => {
                 >
                   تعديل
                 </button>
-                <button
+                <!-- <button
                   @click="deleteAppartment(app.id)"
                   type="button"
                   class="font-medium text-red-600 mx-2 dark:text-red-500 hover:underline"
                 >
                   حذف
-                </button>
+                </button> -->
               </td>
             </tr>
           </tbody>
