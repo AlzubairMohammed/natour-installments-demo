@@ -28,7 +28,7 @@ const add = async () => {
 <template>
   <fwb-modal v-if="isShowModal" @close="closeShowModal">
     <template #header>
-      <div class="flex items-center text-lg">عرض تفاصيل الطلب</div>
+      <div class="flex items-center text-lg">اضافة قسط</div>
     </template>
     <template #body>
       <form

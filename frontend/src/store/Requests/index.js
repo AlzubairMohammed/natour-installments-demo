@@ -29,6 +29,7 @@ const actions = {
   },
   async updateRequest({ commit, state }, payload) {
     const data = await axios.put(`${state.updateUrl}/${payload.id}`, payload);
+    if (payload.is_accepted == true) return 0;
     if (data.data.request[0]) {
       responseAlert("success", "نجاح", "تم رفض الطلب");
     } else {

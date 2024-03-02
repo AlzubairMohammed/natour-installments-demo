@@ -11,6 +11,9 @@ const responseAlert = (icon, title, text) => {
     showConfirmButton: false,
     timer: 3000,
   });
+  setTimeout(() => {
+    window.location.reload();
+  }, 1500);
 };
 
 export default responseAlert;
