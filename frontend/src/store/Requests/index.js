@@ -5,8 +5,8 @@ const state = {
   requests: [],
   request: {},
   url: "installments/requests",
-  updateUrl: "http://inst.natour.ae/api/v1/installments/requests",
-  // updateUrl: "http://localhost:7070/api/v1/installments/requests",
+  // updateUrl: "http://inst.natour.ae/api/v1/installments/requests",
+  updateUrl: "http://localhost:7070/api/v1/installments/requests",
 };
 
 const getters = {
