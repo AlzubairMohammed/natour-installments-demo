@@ -5,7 +5,8 @@ const state = {
   installments: [],
   isInstallmentCreated: false,
   url: "installments",
-  updateUrl: "http://localhost:7070/api/v1/installments",
+  // updateUrl: "http://localhost:7070/api/v1/installments",
+  updateUrl: "http://inst.natour.ae/api/v1/installments",
   addError: [],
   config: {
     headers: {
