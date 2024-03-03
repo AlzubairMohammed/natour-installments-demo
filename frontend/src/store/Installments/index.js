@@ -1,8 +1,11 @@
 import request from "@/services/request";
+import responseAlert from "../../services/sweet_alert";
+import axios from "axios";
 const state = {
   installments: [],
   isInstallmentCreated: false,
   url: "installments",
+  updateUrl: "http://localhost:7070/api/v1/installments",
   addError: [],
   config: {
     headers: {
@@ -29,6 +32,15 @@ const actions = {
   },
   async createInstallment({ state }, payload) {
     state.isInstallmentCreated = await request.post(state.url, payload);
+  },
+  async updateMonth({ state }, payload) {
+    const id = payload.get("id");
+    const data = await axios.put(`${state.updateUrl}/months/${id}`, payload);
+    if (data.data.data[0]) {
+      // responseAlert("success", "نجاح", "تم تعديل حالة الدفع");
+    } else {
+      responseAlert("error", "خطاء", "عفوا حدث خطاء ما ");
+    }
   },
 };
 
