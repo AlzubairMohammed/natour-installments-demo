@@ -190,3 +190,12 @@ exports.getUserInstallment = asyncWrapper(async (req, res, next) => {
   });
   return res.json({ status: httpStatus.SUCCESS, data });
 });
+
+exports.updateMonth = asyncWrapper(async (req, res, next) => {
+  // return res.json(req.body);
+  req.body.paid_date = new Date();
+  req.body.status = true;
+  const id = req.params.id;
+  const data = await installment_months.update(req.body, { where: { id } });
+  return res.json({ status: httpStatus.SUCCESS, data });
+});

@@ -13,6 +13,7 @@ const {
   getUserInstallment,
   getRequest,
   updateRequest,
+  updateMonth,
 } = require("../controllers/installments");
 
 router.post("/user-register", installmentUserRegisterValidator(), userRegister);
@@ -25,5 +26,6 @@ router
   .post("/", createInstallment)
   .get("/:id", getInstallment)
   .delete("/:id", deleteInstallment)
-  .put("/:id", updateInstallment);
+  .put("/:id", updateInstallment)
+  .put("/months/:id", updateMonth);
 module.exports = router;
