@@ -38,7 +38,7 @@ const actions = {
     const id = payload.get("id");
     const data = await axios.put(`${state.updateUrl}/months/${id}`, payload);
     if (data.data.data[0]) {
-      // responseAlert("success", "نجاح", "تم تعديل حالة الدفع");
+      responseAlert("success", "نجاح", "تم تعديل حالة الدفع");
     } else {
       responseAlert("error", "خطاء", "عفوا حدث خطاء ما ");
     }

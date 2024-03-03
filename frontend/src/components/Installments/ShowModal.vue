@@ -338,14 +338,16 @@ onMounted(async () => {
                     readonly
                   />
                 </div>
-                <div class="w-1/2 input-group pr-2 pl-2">
+                <div
+                  class="w-1/2 input-group pr-2 pl-2"
+                  v-if="item.payment_method"
+                >
                   <label
                     :for="`add_value_${index}`"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >طريقة الدفع</label
                   >
                   <input
-                    v-if="item.payment_method"
                     type="text"
                     :id="`add_value_${index}`"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -353,17 +355,6 @@ onMounted(async () => {
                     readonly
                     name="payment_method"
                   />
-                  <select
-                    v-else
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    :id="`add_attribute`"
-                    name="payment_method"
-                  >
-                    <option>اختيار</option>
-                    <option :value="1">كاش</option>
-                    <option :value="2">اونلاين</option>
-                    <option :value="3">حوالة بنكية</option>
-                  </select>
                 </div>
                 <div class="w-1/2 input-group pr-2 pl-2">
                   <label
@@ -384,7 +375,10 @@ onMounted(async () => {
                   />
                 </div>
                 <input type="number" :value="item.id" name="id" hidden />
-                <div class="w-full input-group pr-2 pl-2">
+                <div
+                  class="w-full input-group pr-2 pl-2"
+                  v-if="!item.payment_method"
+                >
                   <button
                     type="submit"
                     @click="openEditeMonth(item)"
