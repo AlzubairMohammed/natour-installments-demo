@@ -75,5 +75,5 @@ exports.paymentCallback = asyncWrapper(async (req, res, next) => {
       }
     );
   }
-  return res.json({ status: httpStatus.SUCCESS, data });
+  return res.render("paymentSuccess");
 });
