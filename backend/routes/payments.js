@@ -4,7 +4,7 @@ const { monthPayment, paymentCallback } = require("../controllers/payments");
 
 router.post("/", monthPayment);
 router.get("/error", (req, res) => {
-  return res.render("paymentError");
+  return res.status(400).json({ status: false });
 });
 router.get("/success", paymentCallback);
 
