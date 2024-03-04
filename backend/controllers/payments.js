@@ -7,12 +7,15 @@ const { validationResult } = require("express-validator");
 const axios = require("axios");
 exports.monthPayment = asyncWrapper(async (req, res, next) => {
   const monthId = req.body.month_id;
+  const monthData = await installment_months.findOne({
+    where: { id: monthId },
+  });
   const data = {
     CustomerName: req.body.username,
     NotificationOption: "ALL",
     CustomerMobile: req.body.phone,
     CustomerEmail: req.body.email,
-    InvoiceValue: 100,
+    InvoiceValue: monthData.price,
     DisplayCurrencyIso: "AED",
     CallBackUrl: process.env.PAYMENT_CALLBACK,
     ErrorUrl: process.env.PAYMENT_ERROR_URL,
