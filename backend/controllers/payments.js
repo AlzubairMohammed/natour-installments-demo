@@ -42,5 +42,35 @@ exports.monthPayment = asyncWrapper(async (req, res, next) => {
 });
 
 exports.paymentCallback = asyncWrapper(async (req, res, next) => {
-  return res.render("paymentSuccess");
+  const paymentId = req.query.paymentId;
+  const header = {
+    headers: {
+      Accept: "application/json",
+      Authorization: "Bearer " + process.env.PAYMENT_TOKEN,
+      "Content-Type": "application/json",
+    },
+  };
+
+  const requestdata = {
+    Key: paymentId,
+    KeyType: "PaymentId",
+  };
+  const { data } = await axios.post(
+    process.env.MYFATOORAH_URL + `/v2/getPaymentStatus`,
+    requestdata,
+    header
+  );
+  if (data.IsSuccess && data.Data.InvoiceStatus === "Paid") {
+    const { Data } = data;
+    const status = true;
+    const paid_date = new Date();
+    const payment_method = 2;
+    await installment_months.update(
+      { status, paid_date, payment_method },
+      {
+        where: { invoice_id: Data.InvoiceId },
+      }
+    );
+  }
+  return res.json({ status: httpStatus.SUCCESS, data });
 });
