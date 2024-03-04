@@ -66,6 +66,8 @@ CREATE TABLE installment_months(
     paid_date DATE,
     payment_method INT,
     price DECIMAL,
+    invoice_id  BIGINT UNSIGNED,
+    payment_id  BIGINT UNSIGNED,
     date DATE,
     FOREIGN KEY (installment_id) REFERENCES installments(id) ON DELETE CASCADE
 );
